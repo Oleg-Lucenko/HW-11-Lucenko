@@ -17,5 +17,5 @@ let returnTypeFoo2: ReturnAndParamType<Foo2> = ['string', 5];
 
 // 3.
 
-type Union<T, U> = T extends {[a: string | number]: infer N} ? {a: N} : undefined;
+type Union<T, U> = T & U extends {[a: string | number]: infer N} ? {a: N} : undefined;
 
