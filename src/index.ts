@@ -5,7 +5,7 @@ type Return<T> = T extends () => infer U ? U : undefined;
 
 type Foo = () => number;
 
-let returnTypeFoo: Return<Foo>;
+let returnTypeFoo: Return<Foo> = 7;
 
 // 2.
 
@@ -15,7 +15,27 @@ type Foo2 = (a: number) => string;
 
 let returnTypeFoo2: ReturnAndParamType<Foo2> = ['string', 5];
 
+
 // 3.
 
-type Union<T, U> = T & U extends {[a: string | number]: infer N} ? {a: N} : undefined;
+type Union<T, U> = {
+    [K in keyof T & keyof U]:
+      T[K] extends U[K] 
+      ? T[K] 
+      : never 
+  }
+
+let x = {
+    a: 2,
+    b: 'we',
+    c: true
+}
+
+let y = {
+    b: 'se',
+    c: true
+}
+
+
+let tuy: Union<typeof x, typeof y> = {b:'tre', c: false};
 
